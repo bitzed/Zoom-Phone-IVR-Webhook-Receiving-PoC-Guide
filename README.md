@@ -337,9 +337,9 @@ pressed key [2]   : 2  @ IVR2 (ext 002)
 
 ***
 
-## 8. Next step: 顧客 Lambda への連携
+## 8. Next step: Lambda への連携
 
-`server.js` の TODO コメント部分 (Webhook ハンドラ内) に、顧客側の Lambda エンドポイント (API Gateway 等) へ POST する処理を追加するだけ。ペイロード例:
+`server.js` の TODO コメント部分 (Webhook ハンドラ内) に、Lambda エンドポイント (API Gateway 等) へ POST する処理を追加するだけ。ペイロード例:
 
 ```json
 {
