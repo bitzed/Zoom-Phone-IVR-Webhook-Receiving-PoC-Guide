@@ -184,7 +184,7 @@ pressed key [2]   : 2  @ IVR2
 
 ### 5.1. Zoom Marketplace アプリ
 
-**Server-to-Server OAuth アプリ** を 1 つ作成する。Marketplace でのアプリ作成手順そのものの詳細は別添資料参照。以下の順で設定する:
+**Server-to-Server OAuth アプリ** を 1 つ作成する。Marketplace でのアプリ作成手順そのものの詳細は [2025年版 はじめての Zoom API - Server to Server OAuth編](https://qiita.com/michitakasugi/items/c9ba4d37c6441bffd2c9) 参照。以下の順で設定する:
 
 1. **Information** — アプリ名・会社情報・Developer Contact など、必須項目を入力する。
 
