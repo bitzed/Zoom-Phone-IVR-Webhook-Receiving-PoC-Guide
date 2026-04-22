@@ -1,8 +1,8 @@
 # Zoom Phone AR(IVR) Webhook 受信 PoC ガイド
 
-> ⚠️ The following sample application is a personal, open-source project shared by the app creator and not an officially supported Zoom Communications, Inc. sample application. Zoom Communications, Inc., its employees and affiliates are not responsible for the use and maintenance of this application. Please use this sample application for inspiration, exploration and experimentation at your own risk and enjoyment. You may reach out to the app creator and broader Zoom Developer community on https://devforum.zoom.us/ for technical discussion and assistance, but understand there is no service level agreement support for this application. Thank you and happy coding!
+> ⚠️ The following sample application is a personal, open-source project shared by the app creator and not an officially supported Zoom Communications, Inc. sample application. Zoom Communications, Inc., its employees and affiliates are not responsible for the use and maintenance of this application. Please use this sample application for inspiration, exploration and experimentation at your own risk and enjoyment. You may reach out to the app creator and broader Zoom Developer community on <https://devforum.zoom.us/> for technical discussion and assistance, but understand there is no service level agreement support for this application. Thank you and happy coding!
 
-> ⚠️ このサンプルのアプリケーションは、Zoom Communications, Inc.の公式にサポートされているものではなく、アプリ作成者が個人的に公開しているオープンソースプロジェクトです。Zoom Communications, Inc.とその従業員、および関連会社は、本アプリケーションの使用や保守について責任を負いません。このサンプルアプリケーションは、あくまでもインスピレーション、探求、実験のためのものとして、ご自身の責任と楽しみの範囲でご活用ください。技術的な議論やサポートが必要な場合は、アプリ作成者やZoom開発者コミュニティ（ https://devforum.zoom.us/ ）にご連絡いただけますが、このアプリケーションにはサービスレベル契約に基づくサポートがないことをご理解ください。
+> ⚠️ このサンプルのアプリケーションは、Zoom Communications, Inc.の公式にサポートされているものではなく、アプリ作成者が個人的に公開しているオープンソースプロジェクトです。Zoom Communications, Inc.とその従業員、および関連会社は、本アプリケーションの使用や保守について責任を負いません。このサンプルアプリケーションは、あくまでもインスピレーション、探求、実験のためのものとして、ご自身の責任と楽しみの範囲でご活用ください。技術的な議論やサポートが必要な場合は、アプリ作成者やZoom開発者コミュニティ（ <https://devforum.zoom.us/> ）にご連絡いただけますが、このアプリケーションにはサービスレベル契約に基づくサポートがないことをご理解ください。
 
 ## 1. 背景と目的
 
@@ -16,7 +16,7 @@ Zoom Phone の **Auto Receptionist (AR) = IVR** は、
 
 **Webhook が飛ばないパターン(AR 内で完結)**
 
-AR(IVR)の中だけでコールが終わる構成。press_key の情報を取得したくても、そもそも Webhook が発火しないためアプリ側には何も届かない。
+AR(IVR)の中だけでコールが終わる構成。press\_key の情報を取得したくても、そもそも Webhook が発火しないためアプリ側には何も届かない。
 
 ![AR 内完結 — Webhook が飛ばない](./IVR%20Flow.png)
 
@@ -184,7 +184,7 @@ pressed key [2]   : 2  @ IVR2
 
 ### 5.1. Zoom Marketplace アプリ
 
-**Server-to-Server OAuth アプリ** を 1 つ作成する。Marketplace でのアプリ作成手順そのものの詳細は [2025年版 はじめての Zoom API - Server to Server OAuth編](https://qiita.com/michitakasugi/items/c9ba4d37c6441bffd2c9) 参照。以下の順で設定する:
+**Server-to-Server OAuth アプリ** を 1 つ作成する。Marketplace でのアプリ作成手順そのものの詳細は [2025年版 はじめての Zoom API - Server to Server OAuth編](https://qiita.com/michitakasugi/items/c9ba4d37c6441bffd2c9) および [2026年版 はじめての Zoom Webhook](https://qiita.com/michitakasugi/items/d000291f1b8d5a51e71c) 参照。以下の順で設定する:
 
 1. **Information** — アプリ名・会社情報・Developer Contact など、必須項目を入力する。
 
@@ -194,17 +194,19 @@ pressed key [2]   : 2  @ IVR2
 
    * Event Notification Endpoint URL: `{ngrokUrl}/zoom/webhook` を入力する
 
-   * Event types: `Phone > Callee's Call Element Completed` (`phone.callee_call_element_completed`) を追加
+   * Event types: `Phone > Callee's Call Element Completed` (`phone.callee_call_element_completed`) を追加![screenshot\_eventTypes](./screenshot_eventTypes.png)
 
-   * URL を保存したら **Validate** で検証が通ることを確認する。
+   * URL を保存したら **Validate** で検証が通ることを確認する。![screenshot\_validate](./screenshot_validate.png)
 
-4. **Scopes** — `Add Scopes` から以下の 2 つを追加する:
+4. **Scopes** — `Add Scopes` から以下を追加する(「phone:read:call:admin 通話を確認する」はWebhookのEvent Type追加により自動的に追加されている):
 
    * `phone:read:call_log:admin`
+     ![screenshot\_scopes](./screenshot_scopes.png)
 
 5. **App Credentials** — `Account ID` / `Client ID` / `Client Secret` を控えて `.env` に設定する。
 
 6. **Activation** — 最後に必ず **Activate your app** を押してアプリを有効化する。これを忘れると OAuth トークン取得も Webhook 受信もできないので要注意。
+![screenshot_activate](./screenshot_activate.png)
 
 ### 5.2. Zoom Phone 側の構成
 
@@ -254,6 +256,7 @@ AR → (各 IVR ノード) → 最終ノードで **Dummy Call Queue へ Forward
 * IVR が多段の場合でも、末端で必ず Dummy CQ に Forward するようにしておくことで、press\_key の履歴が `call_path[]` に全て残る。
 
 #### (4) 設定参考画像
+
 ![設定参考画像](./callQueueSettingSample.png)
 
 ### 5.3. 環境変数
