@@ -194,18 +194,24 @@ pressed key [2]   : 2  @ IVR2
 
    * Event Notification Endpoint URL: `{ngrokUrl}/zoom/webhook` を入力する
 
-   * Event types: `Phone > Callee's Call Element Completed` (`phone.callee_call_element_completed`) を追加![screenshot\_eventTypes](./screenshot_eventTypes.png)
+   * Event types: `Phone > Callee's Call Element Completed` (`phone.callee_call_element_completed`) を追加
+   
+   ![screenshot\_eventTypes](./screenshot_eventTypes.png)
 
-   * URL を保存したら **Validate** で検証が通ることを確認する。![screenshot\_validate](./screenshot_validate.png)
+   * URL を保存したら **Validate** で検証が通ることを確認する。
+   
+   ![screenshot\_validate](./screenshot_validate.png)
 
 4. **Scopes** — `Add Scopes` から以下を追加する(「phone:read:call:admin 通話を確認する」はWebhookのEvent Type追加により自動的に追加されている):
 
    * `phone:read:call_log:admin`
+
      ![screenshot\_scopes](./screenshot_scopes.png)
 
 5. **App Credentials** — `Account ID` / `Client ID` / `Client Secret` を控えて `.env` に設定する。
 
 6. **Activation** — 最後に必ず **Activate your app** を押してアプリを有効化する。これを忘れると OAuth トークン取得も Webhook 受信もできないので要注意。
+
 ![screenshot_activate](./screenshot_activate.png)
 
 ### 5.2. Zoom Phone 側の構成
